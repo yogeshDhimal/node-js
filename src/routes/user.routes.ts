@@ -39,3 +39,19 @@ router.post("/user/new", (req, res)=> {
   res.status(201).json(newUser);
 });
 
+//Get specific user
+router.get("/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+
+  const user = users.find((user) => {
+    return user.id === id;
+  })
+
+  if(! user) {
+    return res.status(404).json({
+      message : "User not found"
+    });
+  }
+
+  res.json(user);
+});
