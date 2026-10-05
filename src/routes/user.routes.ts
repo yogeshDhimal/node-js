@@ -23,3 +23,19 @@ router.get("/users", (req, res)=> {
 });
 
 export default router;
+
+//Create new user
+router.post("/user/new", (req, res)=> {
+  const { name, email } = req.body;
+
+  const newUser = {
+    id : users.length + 1,
+    name,
+    email
+  };
+
+  users.push(newUser);
+
+  res.status(201).json(newUser);
+});
+
