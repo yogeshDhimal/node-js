@@ -81,3 +81,26 @@ router.put("/users/update/:id", (req, res) => {
     message : "Successsfully updated the user"
   });
 });
+
+
+//Delete specific user
+router.delete("/users/delete/:id", (req, res) => {
+  const id = Number(req.params.id);
+
+  const userIndex = users.findIndex((user) => {
+    return user.id === id;
+  });
+
+  if(userIndex === -1) {
+    return res.status(404).json({
+      message : "Usrr not found"
+    });
+  }
+
+  const deletedUser = users.splice(userIndex, 1);
+
+  res.json({
+    deletedUser : deletedUser[0],
+    status : "Success"
+  })
+})
