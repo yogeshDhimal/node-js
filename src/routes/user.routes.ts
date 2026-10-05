@@ -55,3 +55,29 @@ router.get("/users/:id", (req, res) => {
 
   res.json(user);
 });
+
+
+//Update specific user
+router.put("/users/update/:id", (req, res) => {
+  const id = Number(req.params.id);
+
+  const { name, email } = req.body;
+
+  const user = users.find((user) => {
+    return user.id === id;
+  });
+
+  if(! user) {
+    return res.status(404).json({
+      message : "User not found"
+    });
+  }
+
+  user.name = name;
+  user.email = email;
+
+  res.json({
+    user,
+    message : "Successsfully updated the user"
+  });
+});
